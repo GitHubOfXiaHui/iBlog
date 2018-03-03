@@ -3,12 +3,13 @@ package edu.bupt.iblog.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.Data;
 
@@ -19,13 +20,16 @@ public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = -7488866291218450703L;
 
 	@Id @GeneratedValue
-	protected Long id;
+	protected Integer id;
 	
 	@Column(name = "create_time")
-	@Temporal(TemporalType.TIMESTAMP)
 	protected Timestamp createTime;
 	
 	@Column(name = "last_modified")
-	@Temporal(TemporalType.TIMESTAMP)
 	protected Timestamp lastModified;
+	
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	@Column
+	protected String remarks;
 }
